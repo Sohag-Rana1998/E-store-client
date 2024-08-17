@@ -15,27 +15,25 @@ const AllProducts = () => {
   const [loader, setLoader] = useState(false);
   const [minPrice, setMinPrice] = useState(0);
   const [maxPrice, setMaxPrice] = useState(0);
-  const [sortField, setSortField] = useState("");
+  const [sortField, setSortField] = useState("price");
   const [sortOrder, setSortOrder] = useState("");
   const [brand, setBrand] = useState("");
   const [category, setCategory] = useState("");
-  
 
-const filter={search,currentPage,itemsPerPage,sortField,sortOrder}
-const [filterData, setFilterData]=useState(filter);
+  const filter = { search, currentPage, itemsPerPage, sortField, sortOrder };
+  const [filterData, setFilterData] = useState(filter);
 
   const sortRef = useRef(null);
   const brandRef = useRef(null);
   const categoryRef = useRef(null);
   const priceRef = useRef(null);
-  const { products, refetch, isLoading } = useProducts(
-    currentPage,
-    itemsPerPage,
-    search,
-    sortField,
-    sortOrder
-  );
+  const { data, refetch, isLoading } = useProducts(filterData);
+  console.log(data);
+  const products = data?.products;
+  const count = data?.totalProducts || 0;
+  console.log(products, count);
 
+  // const { products, totalProducts } = data;
   useEffect(() => {
     setTimeout(setLoader, 500, false);
   }, []);
@@ -51,7 +49,7 @@ const [filterData, setFilterData]=useState(filter);
     const searchText = e.target.search.value;
     setSearch(searchText);
     setTimeout(refetch, 500);
-    setTimeout(reload, 500);
+
     setTimeout(setLoader, 1000, false);
     e.target.reset();
   };
@@ -67,7 +65,7 @@ const [filterData, setFilterData]=useState(filter);
       setMaxPrice(0);
       setSearch("");
       setTimeout(refetch, 500);
-      setTimeout(reload, 500);
+
       setTimeout(setLoader, 1000, false);
     }
     if (value === "HighToLow") {
@@ -78,18 +76,18 @@ const [filterData, setFilterData]=useState(filter);
       setMaxPrice(0);
       setSearch("");
       setTimeout(refetch, 500);
-      setTimeout(reload, 500);
+
       setTimeout(setLoader, 1000, false);
     }
     if (value === "newFirst") {
       setLoader(true);
       setSortField("date");
-      setSortOrder("desc");
+      setSortOrder("DateDesc");
       setMinPrice(0);
       setMaxPrice(0);
       setSearch("");
       setTimeout(refetch, 500);
-      setTimeout(reload, 500);
+
       setTimeout(setLoader, 1000, false);
     }
   };
@@ -121,13 +119,26 @@ const [filterData, setFilterData]=useState(filter);
     }
   };
 
-const handleFilterApply=()=>{
-  const 
-}
+  const handleFilterApply = () => {
+    const queryData = {
+      search,
+      currentPage,
+      itemsPerPage,
+      sortField,
+      sortOrder,
+      brand,
+      category,
+      minPrice,
+      maxPrice,
+    };
+    setLoader(true);
+    setFilterData(queryData);
+    setSearch("");
+    setTimeout(refetch, 500);
+    setTimeout(setLoader, 1000, false);
+  };
 
-
-
-  return loader || isLoading || isPending ? (
+  return loader || isLoading ? (
     <div className="w-full min-h-screen flex justify-center items-center">
       <span className="loading loading-ball loading-xs"></span>
       <span className="loading loading-ball loading-sm"></span>
@@ -193,7 +204,10 @@ const handleFilterApply=()=>{
                 <option value={"medium"}>6$ to 50$</option>
                 <option value={"high"}>51$ to Up</option>
               </select>
-              <button className="px-6 py-3 border bg-[#ff4135] hover:bg-gray-900 text-white">
+              <button
+                onClick={handleFilterApply}
+                className="px-6 py-3 border bg-[#ff4135] hover:bg-gray-900 text-white"
+              >
                 Apply
               </button>
             </div>
@@ -420,7 +434,7 @@ const handleFilterApply=()=>{
                           setMinPrice(0);
                           setMaxPrice(0);
                           setTimeout(refetch, 500);
-                          setTimeout(reload, 500);
+
                           setLoader(true);
                           setTimeout(setLoader, 1000, false);
                         }}
