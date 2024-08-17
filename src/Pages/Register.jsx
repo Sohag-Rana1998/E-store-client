@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { AuthContext } from "../../Provider/AuthProvider";
 import SocialLogin from "../components/SocialLogin";
-
+import { Helmet } from "react-helmet-async";
 
 const Register = () => {
   const { createUser, updateUserProfile } = useContext(AuthContext);
@@ -27,6 +27,9 @@ const Register = () => {
   };
   return (
     <div>
+      <Helmet>
+        <title>E-Store | Register</title>
+      </Helmet>
       <div className="hero bg-base-200 min-h-screen">
         <div className="hero-content flex-col lg:flex-row-reverse">
           <div className="w-full text-center lg:text-left">
