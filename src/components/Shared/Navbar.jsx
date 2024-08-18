@@ -40,11 +40,42 @@ const Navbar = () => {
             </div>
             <ul
               tabIndex={0}
-              className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
+              className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[100] mt-3 w-52 p-2 shadow"
             >
-              <li>
-                <a>Item 1</a>
-              </li>
+              <div className="block md:hidden">
+                {user ? (
+                  <>
+                    <div className="flex flex-col gap-2">
+                      <h3 className="text-sm font-bold">{user?.displayName}</h3>
+                      <div className="w-14 h-14 rounded-full ">
+                        <img
+                          className="w-full h-full rounded-full"
+                          alt="Tailwind CSS Navbar component"
+                          src={user.photoURL}
+                        />
+                      </div>
+                      <button
+                        onClick={handleLogOut}
+                        className="btn btn-secondary"
+                      >
+                        Logout
+                      </button>
+                    </div>
+                  </>
+                ) : (
+                  <div className=" flex flex-col md:hidden items-center gap-2 ">
+                    {" "}
+                    <Link to={"/login"}>
+                      {" "}
+                      <button className="btn btn-secondary w-32">Login</button>
+                    </Link>
+                    <Link to={"/register"}>
+                      {" "}
+                      <button className="btn btn-primary w-32">Register</button>
+                    </Link>
+                  </div>
+                )}
+              </div>
             </ul>
           </div>
           <Link to={"/"} className="mr-3 md:mr-10 ">
@@ -59,7 +90,7 @@ const Navbar = () => {
           </NavLink>
         </div>
 
-        <div className="">
+        <div className="hidden md:block">
           {user ? (
             <>
               <div className="flex items-center gap-3">
@@ -77,7 +108,7 @@ const Navbar = () => {
               </div>
             </>
           ) : (
-            <div className=" flex items-center gap-3">
+            <div className=" md:flex items-center gap-3 hidden">
               {" "}
               <Link to={"/login"}>
                 {" "}

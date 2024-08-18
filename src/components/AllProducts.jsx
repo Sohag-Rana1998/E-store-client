@@ -190,7 +190,7 @@ const AllProducts = () => {
   ) : (
     <div className="mt-5 max-w-7xl w-full mx-auto">
       <div className="text-center mb-5">
-        <h1 className="text-5xl font-bold">
+        <h1 className="text-3xl md:text-5xl font-bold">
           Featured <span className="text-[#ff4135]">Products</span>{" "}
         </h1>
         <p className="w-full md:w-[60%] mx-auto">
@@ -201,10 +201,10 @@ const AllProducts = () => {
         </p>
       </div>
       <div className="my-5 ">
-        <div className="border p-3 flex flex-col md:flex-row items-center justify-between gap-2">
-          <div>
+        <div className=" border p-3 flex flex-col md:flex-row items-start md:items-center justify-between gap-2">
+          <div className="w-full md:w-[50%]">
             <h4 className="font-bold">Filter:</h4>
-            <div className="flex flex-col md:flex-row items-center justify-between gap-2">
+            <div className="flex flex-col md:flex-row items-center justify-between gap-2 ">
               <select
                 onChange={handleBrand}
                 ref={brandRef}
@@ -248,7 +248,7 @@ const AllProducts = () => {
               </select>
             </div>
           </div>
-          <div className="flex items-end gap-4">
+          <div className="flex items-start md:items-end flex-col-reverse md:flex-row gap-4 ">
             <div>
               <button
                 onClick={handleSeeAll}
