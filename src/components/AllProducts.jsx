@@ -1,12 +1,10 @@
 import { useEffect, useRef, useState } from "react";
-import { ScrollRestoration } from "react-router-dom";
-
-import { FaFilter } from "react-icons/fa";
+import { Link, ScrollRestoration } from "react-router-dom";
 import "@smastrom/react-rating/style.css";
-import { RiCloseLargeFill, RiShoppingBagLine } from "react-icons/ri";
+import { RiShoppingBagLine } from "react-icons/ri";
 import { Rating } from "@smastrom/react-rating";
 import useProducts from "../Hooks/useProducts";
-import useCount from "../Hooks/useCount";
+import { FaHistory } from "react-icons/fa";
 
 const AllProducts = () => {
   const sortRef = useRef(null);
@@ -190,7 +188,7 @@ const AllProducts = () => {
       <span className="loading loading-ball loading-lg"></span>
     </div>
   ) : (
-    <div className="mt-20 max-w-7xl w-full mx-auto">
+    <div className="mt-5 max-w-7xl w-full mx-auto">
       <div className="text-center mb-5">
         <h1 className="text-5xl font-bold">
           Featured <span className="text-[#ff4135]">Products</span>{" "}
@@ -248,29 +246,34 @@ const AllProducts = () => {
                 <option value={"medium"}>6$ to 50$</option>
                 <option value={"high"}>51$ to Up</option>
               </select>
-              <button
-                onClick={handleFilterApply}
-                className="px-6 py-3 border bg-[#ff4135] hover:bg-gray-900 text-white"
-              >
-                Apply
-              </button>
             </div>
           </div>
-          <div>
-            <h4 className="font-bold">Sort By:</h4>
-            <div className="flex flex-col md:flex-row items-center justify-between gap-2">
-              <select
-                onChange={handleSort}
-                ref={sortRef}
-                className="select select-bordered rounded-none w-full md:w-44"
+          <div className="flex items-end gap-4">
+            <div>
+              <button
+                onClick={handleSeeAll}
+                className="flex border px-4 py-3 items-center gap-2 justify-center"
               >
-                <option disabled selected>
-                  Default
-                </option>
-                <option value={"LowtoHigh"}>Low Price to High Price</option>
-                <option value={"HighToLow"}>High Price to Low Price</option>
-                <option value={"newFirst"}>Newest First</option>
-              </select>
+                {" "}
+                Reset Data <FaHistory />
+              </button>
+            </div>
+            <div>
+              <h4 className="font-bold">Sort By:</h4>
+              <div className="flex flex-col md:flex-row items-center justify-between gap-2">
+                <select
+                  onChange={handleSort}
+                  ref={sortRef}
+                  className="select select-bordered rounded-none w-full md:w-44"
+                >
+                  <option disabled selected>
+                    Default
+                  </option>
+                  <option value={"LowtoHigh"}>Low Price to High Price</option>
+                  <option value={"HighToLow"}>High Price to Low Price</option>
+                  <option value={"newFirst"}>Newest First</option>
+                </select>
+              </div>
             </div>
           </div>
         </div>
@@ -298,40 +301,6 @@ const AllProducts = () => {
       <div>
         <div>
           <div className="">
-            {/* <div>
-              <div className=" flex px-2 md:px-10 flex-col md:flex-row justify-between gap-3 items-center mx-auto w-full  mb-5  ">
-                <div className="w-[90%] md:w-full">
-                  <label
-                    onClick={() => {
-                      setModalLoading(false);
-                      setTimeout(setModalLoading, 500, true);
-                    }}
-                    htmlFor="my_modal_7"
-                    className="btn bg-blue-500 flex items-center w-full md:w-48 rounded-xl hover:bg-gray-500 text-white"
-                  >
-                    <FaFilter /> Filter By Price Range
-                  </label>
-                </div>
-                <div className="flex justify-end w-[90%] md:w-full ">
-                  <form onSubmit={handleSearch} className="w-full lg:w-[60%] ">
-                    <label htmlFor="search"></label>
-                    <div className="flex items-center gap-2">
-                      <input
-                        className="input bg-gray-200 w-full  border "
-                        id="search"
-                        name="search"
-                        placeholder="Search By Location (USA)"
-                        type="text"
-                        required
-                      />
-                      <button className="btn md:w-24 py-[14px] px-4 rounded-lg hover:bg-gray-900 font-bold text-white bg-blue-500">
-                        Search
-                      </button>
-                    </div>
-                  </form>
-                </div>
-              </div>
-            </div> */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 w-full ">
               {products?.map((product) => (
                 <div
@@ -360,12 +329,33 @@ const AllProducts = () => {
                       <h4 className="text-lg font-bold">
                         $<span>{product?.price}</span>
                       </h4>
-
-                      <button className="rounded-full btn p-3 border bg-[#E6E6E6] group-hover:bg-[#00B207] flex justify-center items-center outline-none">
-                        <RiShoppingBagLine className="text-xl group-hover:text-white" />
-                      </button>
+                      <Rating
+                        style={{ maxWidth: 120 }}
+                        value={parseInt(product?.rating)}
+                      />
                     </div>
-                    <Rating style={{ maxWidth: 120 }} value={4} />
+
+                    <div className="flex items-center gap-3">
+                      <p className="text-sm font-bold">
+                        Brand:{product?.brand}
+                      </p>
+                      <p className="text-sm font-bold">
+                        Category:{product?.category}
+                      </p>
+                    </div>
+                    <div>
+                      <p className="text-sm font-bold">
+                        Posting Date:{" "}
+                        {new Date(product?.date).toLocaleDateString()}
+                      </p>
+                    </div>
+                    <div className="flex justify-end">
+                      <Link to={`/details/${product?._id}`}>
+                        <button className=" px-4 py-3  border   outline-none">
+                          Details
+                        </button>
+                      </Link>
+                    </div>
                   </div>
                 </div>
               ))}
