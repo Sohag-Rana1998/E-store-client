@@ -9,6 +9,10 @@ import useProducts from "../Hooks/useProducts";
 import useCount from "../Hooks/useCount";
 
 const AllProducts = () => {
+  const sortRef = useRef(null);
+  const brandRef = useRef(null);
+  const categoryRef = useRef(null);
+  const priceRef = useRef(null);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 6;
   const [search, setSearch] = useState("");
@@ -19,24 +23,28 @@ const AllProducts = () => {
   const [sortOrder, setSortOrder] = useState("");
   const [brand, setBrand] = useState("");
   const [category, setCategory] = useState("");
+  const queryData = {
+    search,
+    currentPage,
+    itemsPerPage,
+    sortField,
+    sortOrder,
+    brand,
+    category,
+    minPrice,
+    maxPrice,
+  };
 
-  const filter = { search, currentPage, itemsPerPage, sortField, sortOrder };
-  const [filterData, setFilterData] = useState(filter);
-
-  const sortRef = useRef(null);
-  const brandRef = useRef(null);
-  const categoryRef = useRef(null);
-  const priceRef = useRef(null);
-  const { data, refetch, isLoading } = useProducts(filterData);
+  const { data, refetch, isLoading } = useProducts(queryData);
   console.log(data);
   const products = data?.products;
   const count = data?.totalProducts || 0;
   console.log(products, count);
 
-  // const { products, totalProducts } = data;
   useEffect(() => {
-    setTimeout(setLoader, 500, false);
-  }, []);
+    // Trigger refetch when the component mounts or when queryData changes
+    refetch();
+  }, [queryData, refetch]);
 
   const totalPage = Math.ceil(parseInt(count) / itemsPerPage);
   const pageArray = [...Array(totalPage).keys()].map((element) => element + 1);
@@ -48,8 +56,6 @@ const AllProducts = () => {
     setMaxPrice(0);
     const searchText = e.target.search.value;
     setSearch(searchText);
-    setTimeout(refetch, 500);
-
     setTimeout(setLoader, 1000, false);
     e.target.reset();
   };
@@ -57,6 +63,7 @@ const AllProducts = () => {
   const handleSort = () => {
     const value = sortRef.current.value;
     console.log(value);
+
     if (value === "LowtoHigh") {
       setLoader(true);
       setSortField("price");
@@ -64,8 +71,6 @@ const AllProducts = () => {
       setMinPrice(0);
       setMaxPrice(0);
       setSearch("");
-      setTimeout(refetch, 500);
-
       setTimeout(setLoader, 1000, false);
     }
     if (value === "HighToLow") {
@@ -75,8 +80,6 @@ const AllProducts = () => {
       setMinPrice(0);
       setMaxPrice(0);
       setSearch("");
-      setTimeout(refetch, 500);
-
       setTimeout(setLoader, 1000, false);
     }
     if (value === "newFirst") {
@@ -86,8 +89,6 @@ const AllProducts = () => {
       setMinPrice(0);
       setMaxPrice(0);
       setSearch("");
-      setTimeout(refetch, 500);
-
       setTimeout(setLoader, 1000, false);
     }
   };
@@ -132,12 +133,55 @@ const AllProducts = () => {
       maxPrice,
     };
     setLoader(true);
-    setFilterData(queryData);
+
     setSearch("");
-    setTimeout(refetch, 500);
     setTimeout(setLoader, 1000, false);
   };
 
+  const handlePrevPage = () => {
+    setLoader(true);
+    const queryData = {
+      search,
+      currentPage,
+      itemsPerPage,
+      sortField,
+      sortOrder,
+      brand,
+      category,
+      minPrice,
+      maxPrice,
+    };
+
+    setCurrentPage(currentPage - 1);
+    setTimeout(setLoader, 1000, false);
+  };
+  const handleNextPage = () => {
+    setLoader(true);
+    const queryData = {
+      search,
+      currentPage,
+      itemsPerPage,
+      sortField,
+      sortOrder,
+      brand,
+      category,
+      minPrice,
+      maxPrice,
+    };
+
+    setCurrentPage(currentPage + 1);
+    setTimeout(setLoader, 1000, false);
+  };
+  const handleSeeAll = () => {
+    setLoader(true);
+    setSearch("");
+    setBrand("");
+    setCategory("");
+    setMaxPrice(0);
+    setMinPrice(0);
+    setSortOrder("");
+    setTimeout(setLoader, 1000, false);
+  };
   return loader || isLoading ? (
     <div className="w-full min-h-screen flex justify-center items-center">
       <span className="loading loading-ball loading-xs"></span>
@@ -331,12 +375,7 @@ const AllProducts = () => {
                 <div className="flex justify-center items-center text-white my-5 bg-blue-500 rounded-xl p-3">
                   <div className="flex">
                     <a
-                      onClick={() => {
-                        setCurrentPage(currentPage - 1);
-                        setTimeout(refetch, 500);
-                        setLoader(true);
-                        setTimeout(setLoader, 1000, false);
-                      }}
+                      onClick={handlePrevPage}
                       className={
                         currentPage == 1
                           ? " hidden"
@@ -367,8 +406,8 @@ const AllProducts = () => {
                       <button
                         onClick={() => {
                           setCurrentPage(page);
-                          setTimeout(refetch, 500);
                           setLoader(true);
+
                           setTimeout(setLoader, 1000, false);
                         }}
                         key={page}
@@ -388,12 +427,7 @@ const AllProducts = () => {
                           ? "hidden"
                           : "px-4 py-2 mx-1  text-gray-700 transition-colors duration-300 transform bg-white rounded-md dark:bg-gray-800 dark:text-gray-200 hover:bg-blue-500 dark:hover:bg-blue-500 hover:text-white dark:hover:text-gray-200"
                       }
-                      onClick={() => {
-                        setCurrentPage(currentPage + 1);
-                        setTimeout(refetch, 500);
-                        setLoader(true);
-                        setTimeout(setLoader, 1000, false);
-                      }}
+                      onClick={handleNextPage}
                     >
                       <div className="flex items-center cursor-pointer -mx-1">
                         <span className="mx-1">Next Page</span>
@@ -422,25 +456,17 @@ const AllProducts = () => {
                     {products && products.length === 0 ? (
                       <h3 className="text-center text-3xl font-bold my-10">
                         {" "}
-                        No Job Found
+                        No Result Found
                       </h3>
                     ) : (
                       <></>
                     )}
                     <div className="w-full flex  justify-center">
                       <button
-                        onClick={() => {
-                          setSearch("");
-                          setMinPrice(0);
-                          setMaxPrice(0);
-                          setTimeout(refetch, 500);
-
-                          setLoader(true);
-                          setTimeout(setLoader, 1000, false);
-                        }}
+                        onClick={handleSeeAll}
                         className="btn w-[40] bg-blue-500 text-white text-right mb-5"
                       >
-                        See All Property
+                        See All
                       </button>
                     </div>
                   </div>
