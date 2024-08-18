@@ -41,17 +41,17 @@ const Register = () => {
       <Helmet>
         <title>E-Store | Register</title>
       </Helmet>
-      <div className="hero bg-base-200 min-h-screen">
-        <div className="hero-content flex-col lg:flex-row-reverse">
-          <div className="w-full text-center lg:text-left">
-            <h1 className="text-5xl font-bold">Register Now</h1>
+      <div className=" bg-base-200 min-h-screen w-full py-10">
+        <div className="max-w-7xl w-full mx-auto flex items-center justify-between md:justify-center flex-col lg:flex-row-reverse">
+          <div className="w-full text-center md:text-left md:w-[50%]">
+            <h1 className="text-3xl md:text-5xl font-bold">Register Now</h1>
             <p className="py-6">
               Welcome to the future! Register to embark on an amazing journey
               with us. Discover how our platform can simplify your life and
               achieve your goals.
             </p>
           </div>
-          <div className="card bg-base-100 w-full md:w-[50%] shrink-0 shadow-2xl">
+          <div className="border rounded-xl bg-base-100 w-full md:w-[50%] shrink-0 shadow-2xl">
             <form onSubmit={handleRegister} className="card-body">
               <div className="form-control">
                 <label className="label">

@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 
 const Login = () => {
- const navigate=useNavigate();
+  const navigate = useNavigate();
   const { signIn } = useContext(AuthContext);
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -23,29 +23,28 @@ const Login = () => {
         icon: "success",
         title: "Login Successfull",
         showConfirmButton: false,
-        timer: 1500
+        timer: 1500,
       });
-      navigate('/')
-
+      navigate("/");
     } catch (err) {
       console.log(err.message);
     }
   };
   return (
-    <div>
+    <div className="">
       <Helmet>
         <title>E-Store | Login</title>
       </Helmet>
-      <div className="hero bg-base-200 min-h-screen">
-        <div className="hero-content flex-col lg:flex-row-reverse">
-          <div className="text-center lg:text-left">
-            <h1 className="text-5xl font-bold">Login now!</h1>
-            <p className="py-6">
-              Your adventure starts here. Login to explore.
+      <div className="bg-base-200 py-10 min-h-screen w-full ">
+        <div className="max-w-7xl w-full mx-auto flex flex-col md:flex-row-reverse gap-5 justify-center md:justify-between items-center ">
+          <div className="text-center w-full md:w-[40%] lg:text-left">
+            <h1 className="text-3xl md:text-5xl font-bold">Login now!</h1>
+            <p className="text-wrap ">
+              Your adventure starts here. <br /> Login to explore.
             </p>
           </div>
-          <div className="card bg-base-100 w-full md:w-[60%] shrink-0 shadow-2xl">
-            <form onSubmit={handleLogin} className="card-body">
+          <div className="bg-base-100 p-5  rounded-md w-full border s md:w-[60%] shrink-0 shadow-2xl">
+            <form onSubmit={handleLogin} className="">
               <div className="form-control">
                 <label className="label">
                   <span className="label-text">Email</span>

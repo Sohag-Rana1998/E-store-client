@@ -213,7 +213,7 @@ const AllProducts = () => {
                 <option disabled selected>
                   Brand
                 </option>
-                <option value={"Unilever"}>Unilever</option>
+                <option value={"Uniliver"}>Unilever</option>
                 <option value={"Calvin Klein"}>Calvin Klein</option>
                 <option value={"OTOBI"}>OTOBI</option>
                 <option value={"Fresh Farms"}>Fresh Farms</option>
@@ -336,17 +336,25 @@ const AllProducts = () => {
                     </div>
 
                     <div className="flex items-center gap-3">
-                      <p className="text-sm font-bold">
-                        Brand:{product?.brand}
+                      <p>
+                        Brand:
+                        <span className="text-sm font-bold">
+                          {product?.brand}
+                        </span>
                       </p>
-                      <p className="text-sm font-bold">
-                        Category:{product?.category}
+                      <p>
+                        Category:{" "}
+                        <span className="text-sm font-bold">
+                          {product?.category}
+                        </span>
                       </p>
                     </div>
                     <div>
-                      <p className="text-sm font-bold">
+                      <p>
                         Posting Date:{" "}
-                        {new Date(product?.date).toLocaleDateString()}
+                        <span className="text-sm font-bold">
+                          {new Date(product?.date).toLocaleDateString()}
+                        </span>
                       </p>
                     </div>
                     <div className="flex justify-end">
