@@ -9,6 +9,7 @@ import "swiper/css/navigation";
 
 // import required modules
 import { Autoplay, Pagination, Navigation } from "swiper/modules";
+import { Link } from "react-router-dom";
 
 const Banner = () => {
   const progressCircle = useRef(null);
@@ -53,9 +54,12 @@ const Banner = () => {
                   <p className="text-lg md:text-2xl mt-4 font-semibold">
                     New Modern Stylist Fashionable Men's Wear Jeans Shirt.
                   </p>
-                  <button className=" px-10 py-6  border-2 border-gray-700 mt-5 text-2xl font-semibold  hover:bg-[#ff4135] hover:text-white duration-500 ">
-                    Explore Now
-                  </button>
+                  <Link to={"/shop"}>
+                    {" "}
+                    <button className=" px-10 py-6  border-2 border-gray-700 mt-5 text-2xl font-semibold  hover:bg-[#ff4135] hover:text-white duration-500 ">
+                      Explore Now
+                    </button>
+                  </Link>
                 </div>
               </div>
               <div className="w-full md:w-[40%] h-full">
@@ -84,9 +88,12 @@ const Banner = () => {
                   <p className="text-lg md:text-2xl mt-4 font-semibold">
                     New Modern Stylist Fashionable Men's Wear Jeans Shirt.
                   </p>
-                  <button className=" px-10 py-6  border-2 border-gray-700 mt-5 text-2xl font-semibold  hover:bg-[#ff4135] hover:text-white duration-500 ">
-                    Explore Now
-                  </button>
+                  <Link to={"/shop"}>
+                    {" "}
+                    <button className=" px-10 py-6  border-2 border-gray-700 mt-5 text-2xl font-semibold  hover:bg-[#ff4135] hover:text-white duration-500 ">
+                      Explore Now
+                    </button>
+                  </Link>
                 </div>
               </div>
               <div className="w-full md:w-[60%] h-full">
@@ -115,9 +122,12 @@ const Banner = () => {
                   <p className="text-lg md:text-2xl mt-4 font-semibold">
                     New Modern Stylist Fashionable Men's Wear Jeans Shirt.
                   </p>
-                  <button className=" px-10 py-6  border-2 border-gray-700 mt-5 text-2xl font-semibold  hover:bg-[#ff4135] hover:text-white duration-500 ">
-                    Explore Now
-                  </button>
+                  <Link to={"/shop"}>
+                    {" "}
+                    <button className=" px-10 py-6  border-2 border-gray-700 mt-5 text-2xl font-semibold  hover:bg-[#ff4135] hover:text-white duration-500 ">
+                      Explore Now
+                    </button>
+                  </Link>
                 </div>
               </div>
               <div className="w-full md:w-[40%] h-full">

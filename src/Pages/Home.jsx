@@ -11,7 +11,7 @@ const Home = () => {
           <title>E-Store | Home</title>
         </Helmet>
       </div>
-      <div className="h-auto md:max-h-screen">
+      <div className="h-auto md:max-h-screen my-10">
         <Banner />
       </div>
     </div>
