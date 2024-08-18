@@ -10,6 +10,7 @@ import Register from "./Pages/Register";
 import AuthProvider from "../Provider/AuthProvider";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { HelmetProvider } from "react-helmet-async";
+import AllProducts from "./components/AllProducts";
 // Create a client
 const queryClient = new QueryClient();
 
@@ -22,6 +23,10 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <Home />,
+      },
+      {
+        path: "/shop",
+        element: <AllProducts />,
       },
 
       {

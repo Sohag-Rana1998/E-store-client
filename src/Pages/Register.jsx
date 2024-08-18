@@ -2,10 +2,12 @@ import React, { useContext } from "react";
 import { AuthContext } from "../../Provider/AuthProvider";
 import SocialLogin from "../components/SocialLogin";
 import { Helmet } from "react-helmet-async";
+import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const Register = () => {
   const { createUser, updateUserProfile } = useContext(AuthContext);
-
+  const navigate = useNavigate();
   console.log(createUser);
 
   const handleRegister = async (e) => {
@@ -21,6 +23,15 @@ const Register = () => {
       const result = await createUser(email, password);
       console.log(result);
       updateUserProfile(name, photo);
+      Swal.fire({
+        position: "top-center",
+        icon: "success",
+        title: "Registered Successfully",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+
+      navigate("/");
     } catch (err) {
       console.log(err.message);
     }

@@ -1,12 +1,20 @@
 import React, { useContext } from "react";
 
 import { AuthContext } from "../../../Provider/AuthProvider";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const Navbar = () => {
   const { user, logOut } = useContext(AuthContext);
   const handleLogOut = (e) => {
     logOut();
+    Swal.fire({
+      position: "top-center",
+      icon: "success",
+      title: "Logout Successfully",
+      showConfirmButton: false,
+      timer: 1500,
+    });
   };
   console.log(user);
   return (
@@ -37,14 +45,18 @@ const Navbar = () => {
               <li>
                 <a>Item 1</a>
               </li>
-             
             </ul>
           </div>
-          <Link to={"/"}>
+          <Link to={"/"} className="mr-3 md:mr-10 ">
             <button className="btn btn-ghost text-2xl font-bold">
               E-<span className="text-[#ff4135]">Store</span>
             </button>
           </Link>
+          <NavLink to={"/shop"}>
+            <button className="btn border border-[#ff4135] text-lg font-bold focus:outline-none">
+              Shop
+            </button>
+          </NavLink>
         </div>
 
         <div className="">
@@ -69,11 +81,11 @@ const Navbar = () => {
               {" "}
               <Link to={"/login"}>
                 {" "}
-                <button className="btn btn-secondary">Login</button>
+                <button className="btn btn-secondary w-32">Login</button>
               </Link>
               <Link to={"/register"}>
                 {" "}
-                <button className="btn btn-primary">Register</button>
+                <button className="btn btn-primary w-32">Register</button>
               </Link>
             </div>
           )}

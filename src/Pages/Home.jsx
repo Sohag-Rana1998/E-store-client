@@ -11,8 +11,9 @@ const Home = () => {
           <title>E-Store | Home</title>
         </Helmet>
       </div>
-      <Banner />
-      <AllProducts />
+      <div className="max-h-screen">
+        <Banner />
+      </div>
     </div>
   );
 };

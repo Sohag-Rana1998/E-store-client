@@ -19,7 +19,7 @@ const Banner = () => {
   };
   return (
     <>
-      <div className="h-[650px] w-full">
+      <div className="h-screen w-full">
         <Swiper
           spaceBetween={30}
           centeredSlides={true}
@@ -34,7 +34,7 @@ const Banner = () => {
           navigation={true}
           modules={[Autoplay, Pagination, Navigation]}
           onAutoplayTimeLeft={onAutoplayTimeLeft}
-          className="mySwiper h-[650px] w-full"
+          className="mySwiper h-screen w-full"
         >
           <SwiperSlide className="h-full">
             <div className="w-full h-full max-w-7xl mx-auto flex flex-col md:flex-row gap-5 items-center justify-between">
@@ -58,7 +58,7 @@ const Banner = () => {
                   </button>
                 </div>
               </div>
-              <div className="w-full md:w-[50%] h-full">
+              <div className="w-full md:w-[40%] h-full">
                 <img
                   src="https://i.postimg.cc/8PC8pKtp/banner-image-1.png"
                   alt="banner Image"
@@ -89,7 +89,7 @@ const Banner = () => {
                   </button>
                 </div>
               </div>
-              <div className="w-full md:w-[50%] h-full">
+              <div className="w-full md:w-[60%] h-full">
                 <img
                   src="https://i.postimg.cc/ZKsGC8Mr/banner-image-3.png"
                   alt="banner Image"
@@ -120,7 +120,7 @@ const Banner = () => {
                   </button>
                 </div>
               </div>
-              <div className="w-full md:w-[50%] h-full">
+              <div className="w-full md:w-[40%] h-full">
                 <img
                   src="https://i.postimg.cc/wx28d854/banner-image-2.png"
                   alt="banner Image"

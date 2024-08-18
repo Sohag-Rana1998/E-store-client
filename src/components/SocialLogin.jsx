@@ -1,15 +1,12 @@
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import Swal from "sweetalert2";
 import { useContext } from "react";
-import useAxiosPublic from "../Hooks/useAxiosPublic";
 import { AuthContext } from "../../Provider/AuthProvider";
 
 const SocialLogin = () => {
-  const { googleSignIn } = useContext(AuthContext);
-  const axiosPublic = useAxiosPublic();
   const navigate = useNavigate();
-  const location = useLocation();
+  const { googleSignIn } = useContext(AuthContext);
   const handleGoogleSignIn = () => {
     googleSignIn().then((result) => {
       console.log(result.user);
@@ -18,15 +15,14 @@ const SocialLogin = () => {
         name: result.user?.displayName,
         photo: result.user?.photoURL,
       };
-      axiosPublic.post("/users", userInfo).then((res) => {
-        console.log(res.data);
-        Swal.fire({
-          icon: "success",
-          title: "Login successfully",
-          timer: 1500,
-        });
-        navigate(location?.state || "/");
+      Swal.fire({
+        position: "top-center",
+        icon: "success",
+        title: "Login Successfull",
+        showConfirmButton: false,
+        timer: 1500,
       });
+      navigate("/");
     });
   };
 

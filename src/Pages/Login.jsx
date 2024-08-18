@@ -2,8 +2,11 @@ import React, { useContext } from "react";
 import { AuthContext } from "../../Provider/AuthProvider";
 import SocialLogin from "../components/SocialLogin";
 import { Helmet } from "react-helmet-async";
+import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const Login = () => {
+ const navigate=useNavigate();
   const { signIn } = useContext(AuthContext);
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -15,6 +18,15 @@ const Login = () => {
     try {
       const result = await signIn(email, password);
       console.log(result);
+      Swal.fire({
+        position: "top-center",
+        icon: "success",
+        title: "Login Successfull",
+        showConfirmButton: false,
+        timer: 1500
+      });
+      navigate('/')
+
     } catch (err) {
       console.log(err.message);
     }
